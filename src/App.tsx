@@ -33,38 +33,38 @@ const App = () => {
     hints.set(DecodeHintType.POSSIBLE_FORMATS, formats);
     const codeReader = new BrowserMultiFormatReader(hints);
 
-    // useEffect(() => {
-    //     const funtVideo = async () => {
-    //         const videoInputDeviceList =
-    //             await codeReader.listVideoInputDevices();
-    //         setVideoInputDevices(videoInputDeviceList);
+    useEffect(() => {
+        const funtVideo = async () => {
+            const videoInputDeviceList =
+                await codeReader.listVideoInputDevices();
+            setVideoInputDevices(videoInputDeviceList);
 
-    //         console.log("====================================");
-    //         console.log(await codeReader.listVideoInputDevices());
-    //         console.log("====================================");
+            console.log("====================================");
+            console.log(await codeReader.listVideoInputDevices());
+            console.log("====================================");
 
-    //         if (
-    //             videoInputDeviceList.length > 0 &&
-    //             selectedVideoDevice == null
-    //         ) {
-    //             setSelectedVideoDevice(videoInputDeviceList[0].deviceId);
-    //         }
+            if (
+                videoInputDeviceList.length > 0 &&
+                selectedVideoDevice == null
+            ) {
+                setSelectedVideoDevice(videoInputDeviceList[0].deviceId);
+            }
 
-    //         if (videoInputDeviceList.length > 1) {
-    //             videoInputDeviceList.forEach((element) => {
-    //                 const opt: ISourceOption = {
-    //                     text: element.label,
-    //                     value: element.deviceId,
-    //                 };
-    //                 setSourceOption([...sourceOption, opt]);
-    //             });
+            if (videoInputDeviceList.length > 1) {
+                videoInputDeviceList.forEach((element) => {
+                    const opt: ISourceOption = {
+                        text: element.label,
+                        value: element.deviceId,
+                    };
+                    setSourceOption([...sourceOption, opt]);
+                });
 
-    //             setShowSelectPanel(true);
-    //         }
-    //     };
+                setShowSelectPanel(true);
+            }
+        };
 
-    //     funtVideo();
-    // }, [selectedVideoDevice]);
+        funtVideo();
+    }, [selectedVideoDevice]);
 
     const scannerBarCode = () => {
         codeReader
@@ -86,25 +86,27 @@ const App = () => {
             .catch((err) => console.log("error", err));
     };
 
-    const getVideo = () => {
-        navigator.mediaDevices
-            .getUserMedia({ video: { width: 300 } })
-            .then((stream) => {
-                let video = videoRef.current;
+    // const getVideo = () => {
+    //     navigator.mediaDevices
+    //         .getUserMedia({ video: { width: 300 } })
+    //         .then((stream) => {
+    //             let video = videoRef.current;
 
-                console.log(video);
+    //             console.log(video);
 
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch((err) => {
-                console.error("error:", err);
-            });
-    };
+    //             if (video !== null) {
+    //                 video.srcObject = stream;
+    //                 video.play();
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             console.error("error:", err);
+    //         });
+    // };
 
-    useEffect(() => {
-        getVideo();
-    }, [videoRef]);
+    // useEffect(() => {
+    //     getVideo();
+    // }, [videoRef]);
 
     return (
         <div className="container mx-auto px-4 my-10">

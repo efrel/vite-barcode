@@ -3,14 +3,18 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
+    "homepage": "https://efrel.github.io/vite-barcode/",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "dependencies": {
         "@material-tailwind/react": "^1.2.5",
         "@zxing/browser": "^0.0.9",
+        "gh-pages": "^5.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.7.0",
