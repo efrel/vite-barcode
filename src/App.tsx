@@ -50,17 +50,17 @@ const App = () => {
                 setSelectedVideoDevice(videoInputDeviceList[0].deviceId);
             }
 
-            if (videoInputDeviceList.length > 1) {
-                videoInputDeviceList.forEach((element) => {
-                    const opt: ISourceOption = {
-                        text: element.label,
-                        value: element.deviceId,
-                    };
-                    setSourceOption([...sourceOption, opt]);
-                });
+            // if (videoInputDeviceList.length > 1) {
+            //     videoInputDeviceList.forEach((element) => {
+            //         const opt: ISourceOption = {
+            //             text: element.label,
+            //             value: element.deviceId,
+            //         };
+            //         setSourceOption([...sourceOption, opt]);
+            //     });
 
-                setShowSelectPanel(true);
-            }
+            //     setShowSelectPanel(true);
+            // }
         };
 
         funtVideo();
@@ -68,45 +68,13 @@ const App = () => {
 
     const scannerBarCode = () => {
         codeReader
-            .decodeFromVideoDevice(selectedVideoDevice, "video", (res) => {
-                console.log(res);
-
-                if (res) {
-                    const rawText = res.getText();
-                    const qrCodeParser = new QrCodeParser();
-                    const parseOutcome = qrCodeParser.Parse(rawText);
-                    if (parseOutcome.scanSuccess === true)
-                        setResultCode(
-                            `${parseOutcome.scanSuccessMessage} ${parseOutcome.sum}`
-                        );
-                    else alert(parseOutcome.scanSuccessMessage);
-                }
+            .decodeOnceFromVideoDevice(selectedVideoDevice, "video")
+            .then((res) => {
+                console.log("result", res);
+                setResultCode(res.toString());
             })
-            .then((res) => console.log("result", res))
             .catch((err) => console.log("error", err));
     };
-
-    // const getVideo = () => {
-    //     navigator.mediaDevices
-    //         .getUserMedia({ video: { width: 300 } })
-    //         .then((stream) => {
-    //             let video = videoRef.current;
-
-    //             console.log(video);
-
-    //             if (video !== null) {
-    //                 video.srcObject = stream;
-    //                 video.play();
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.error("error:", err);
-    //         });
-    // };
-
-    // useEffect(() => {
-    //     getVideo();
-    // }, [videoRef]);
 
     return (
         <div className="container mx-auto px-4 my-10">
@@ -140,7 +108,7 @@ const App = () => {
                     />
                 </div>
 
-                <div
+                {/* <div
                     id="sourceSelectPanel"
                     className={showSelectPanel ? "flex" : "hidden"}
                 >
@@ -156,7 +124,7 @@ const App = () => {
                             );
                         })}
                     </Select>
-                </div>
+                </div> */}
 
                 <label>Result:</label>
                 <pre>
